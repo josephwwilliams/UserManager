@@ -8,7 +8,9 @@ import { ThemeService } from '../../app/shared/services/theme/theme.service';
     <div
       class="flex justify-between items-center flex-col md:flex-row gap-4 pb-4"
     >
-      <div class="text-3xl dark:text-slate-300 text-center md:text-left">
+      <div
+        class="text-3xl dark:text-slate-300 text-center md:text-left drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+      >
         User Manager Pro 😎
       </div>
       <div class="flex justify-between gap-5">

@@ -21,7 +21,8 @@
     "db:generate": "npx prisma generate",
     "db:seed": "npx prisma db seed",
     "db:reset": "npx prisma migrate reset && yarn db:seed && yarn db:generate",
-    "setup": "yarn && yarn db:reset && start http://localhost:5173/ && yarn dev"
+    "setup": "yarn && yarn db:reset && yarn dev",
+    "project:reset": "rm -rf node_modules && rm -rf dist && yarn setup"
   },
   "dependencies": {
     "@analogjs/content": "^0.2.0-beta.15",

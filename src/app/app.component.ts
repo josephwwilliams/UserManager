@@ -10,10 +10,10 @@ import { FooterComponent } from '../lib/components/footer';
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
     <div
-      class="min-h-screen min-w-screen flex justify-center items-center dark:bg-gray-900 transition-all duration-300 ease-in-out px-8"
+      class="min-h-screen min-w-screen flex justify-center items-center dark:bg-gray-900 transition-all duration-300 ease-in-out p-8"
     >
       <div
-        class="p-8 bg-white shadow-2xl rounded-lg dark:bg-gray-600 max-w-2xl w-full"
+        class="p-8 bg-gray-100 shadow-2xl rounded-lg dark:bg-gray-600 max-w-2xl w-full"
       >
         <app-header></app-header>
         <router-outlet></router-outlet>
