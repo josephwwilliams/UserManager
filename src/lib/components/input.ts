@@ -6,12 +6,17 @@ import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
   selector: 'app-input',
   standalone: true,
   template: `
+    <!-- Input HTML template -->
     <div class="flex flex-col mb-4">
       <label [for]="label" class="mb-2 text-gray-700 dark:text-gray-300">
+        <!-- Input label -->
         {{ label }}
+
+        <!-- If the input field is required, display an asterisk -->
         <span class="text-red-500" *ngIf="required">*</span>
       </label>
 
+      <!-- Input field with various dynamic properties -->
       <input
         [id]="label"
         [type]="type"
@@ -21,6 +26,7 @@ import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
         class="border-2 border-gray-300 p-2 rounded outline-none focus:border-blue-500 transition-colors duration-300"
       />
 
+      <!-- Show error messages if there are validation errors -->
       <div
         *ngIf="displayErrors()"
         class="mt-2 text-sm text-red-500 dark:text-red-300"
@@ -33,6 +39,7 @@ import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
   imports: [ReactiveFormsModule, FormsModule, NgIf],
 })
 export class AppInputComponent {
+  // Define the component's @Input properties
   @Input() control!: FormControl;
   @Input() label: string = '';
   @Input() type: string = 'text';
@@ -40,8 +47,9 @@ export class AppInputComponent {
   @Input() required: boolean = false;
   @Input() readonly: boolean = false;
 
+  // Method to display error messages if there are any validation errors
   displayErrors() {
-    const { dirty, touched, errors } = this.control;
-    return dirty && touched && errors;
+    const { dirty, touched, errors } = this.control; // Destructure relevant properties from control object
+    return dirty && touched && errors; // Return true if control is dirty, touched, and has errors
   }
 }

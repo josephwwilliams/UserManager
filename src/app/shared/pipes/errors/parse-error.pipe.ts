@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'parseError', standalone: true })
 export class ParseErrorPipe implements PipeTransform {
+  // Checks for prisma error messages and diplays them cleanly
   transform(error: any): string {
     if (error?.error?.message) {
       if (

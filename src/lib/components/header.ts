@@ -14,6 +14,7 @@ import { ThemeService } from '../../app/shared/services/theme/theme.service';
         User Manager Pro 😎
       </div>
       <div class="flex justify-between gap-5">
+        <!-- Theme Toggler -->
         <div class="dark:text-slate-300">Light</div>
         <label class="relative inline-flex items-center cursor-pointer">
           <input
@@ -32,5 +33,6 @@ import { ThemeService } from '../../app/shared/services/theme/theme.service';
   `,
 })
 export class HeaderComponent {
+  // Inject Theme Service
   public themeService = inject(ThemeService);
 }

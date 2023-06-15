@@ -26,5 +26,6 @@ import { Component, Input } from '@angular/core';
   imports: [NgClass],
 })
 export class LoadingIconComponent {
+  // Input Properties
   @Input() styles: string = '';
 }

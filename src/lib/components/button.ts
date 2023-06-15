@@ -30,14 +30,17 @@ import twJoin from '../utils/twJoin';
       [ngClass]="buttonClass"
       [ngSwitch]="isLoading"
     >
+      <!-- Default button state when not loading -->
       <ng-container *ngSwitchDefault>
         <div class="flex justify-center items-center">
           <p class="text-sm">{{ buttonText }}</p>
+          <!-- If icon is defined, then display it -->
           <div *ngIf="icon" [ngClass]="iconStyles">
             <ng-container [ngTemplateOutlet]="icon"></ng-container>
           </div>
         </div>
       </ng-container>
+      <!-- When loading, show a loading icon -->
       <loading-icon *ngSwitchCase="true" styles="h-5 w-5"></loading-icon>
     </button>
   `,
@@ -52,8 +55,10 @@ import twJoin from '../utils/twJoin';
   ],
 })
 export class ButtonComponent implements OnChanges {
+  // Inject ChangeDetectorRef service
   private cdr = inject(ChangeDetectorRef);
 
+  // Define the component's @Input properties
   @Input() isLoading: boolean | null = false;
   @Input() disabled: boolean | null = false;
   @Input() buttonText: string = '';
@@ -63,16 +68,20 @@ export class ButtonComponent implements OnChanges {
   @Input() styles: string = '';
   @Input() variant: 'delete' | 'submit' | 'default' = 'default';
 
+  // Define the component's @Output properties
   @Output() onButtonClick = new EventEmitter<void>();
 
   public buttonClass: string = '';
 
+  // Life-cycle hook that is called when any data-bound property of a directive changes
   ngOnChanges() {
     this.buttonClass = twJoin(
+      // Use twJoin utility function to join class names
       'text-white px-4 py-2 rounded-md shadow-md transition duration-300 focus:ring-4 focus:outline-none font-medium text-sm text-center',
       this.styles,
       this.isLoading && 'cursor-not-allowed',
       {
+        // Different button styles for different variants
         delete:
           'bg-red-600 hover:bg-red-800 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-700 dark:focus:ring-red-400',
         submit:
@@ -81,12 +90,13 @@ export class ButtonComponent implements OnChanges {
           'bg-slate-600 hover:bg-slate-800 focus:ring-slate-300 dark:bg-slate-500 dark:hover:bg-slate-700 dark:focus:ring-slate-400',
       }[this.variant]
     );
-    this.cdr.detectChanges();
+    this.cdr.detectChanges(); // Detect changes to update the view
   }
 
+  // Click handler for the button
   onClick() {
     if (!this.isLoading) {
-      this.onButtonClick.emit();
+      this.onButtonClick.emit(); // Emit click event if not loading
     }
   }
 }

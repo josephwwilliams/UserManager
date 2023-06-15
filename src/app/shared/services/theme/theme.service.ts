@@ -1,18 +1,23 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
+  // Inject platform
+  private platformId: Object = inject(PLATFORM_ID);
+
+  // Set default theme to dark
   public theme: 'dark' | 'light' = 'dark';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
   setTheme() {
+    // Check to see if we are on the client
     if (isPlatformBrowser(this.platformId)) {
+      // Get localstorage setting
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
+        // Set the theme to the saved theme
         this.theme = savedTheme as 'light' | 'dark';
         document.documentElement.classList.add(savedTheme);
       } else {
@@ -22,7 +27,9 @@ export class ThemeService {
   }
 
   toggleTheme() {
+    // Check to see if we are on the client
     if (isPlatformBrowser(this.platformId)) {
+      // Basic toggle for theme changing
       if (this.theme === 'light') {
         this.theme = 'dark';
         document.documentElement.classList.remove('light');

@@ -15,17 +15,22 @@ import { FooterComponent } from '../lib/components/footer';
       <div
         class="p-8 bg-gray-100 shadow-2xl rounded-lg dark:bg-gray-600 max-w-2xl w-full"
       >
+        <!-- Header -->
         <app-header></app-header>
+        <!-- Outlet -->
         <router-outlet></router-outlet>
+        <!-- Footer -->
         <app-footer></app-footer>
       </div>
     </div>
   `,
 })
 export class AppComponent {
+  // Inject Theme Service
   private themeService = inject(ThemeService);
 
   ngOnInit() {
+    // Set current theme
     this.themeService.setTheme();
   }
 }
