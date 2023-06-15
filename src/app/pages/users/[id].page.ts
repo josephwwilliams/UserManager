@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { filter, map, of, shareReplay, switchMap, tap } from 'rxjs';
+import { filter, map, shareReplay, switchMap, tap } from 'rxjs';
 import { ButtonComponent } from '../../../lib/components/button';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../shared/store/user/user.actions';
@@ -51,16 +51,22 @@ export interface AboutPageAttributes {
           </div>
         </div>
 
-        <ng-container *ngIf="post$ | async as post">
-          <div class="border border-gray-300 p-4 rounded-md my-2">
-            <h1 class="underline">Dynamic Mardown Content:</h1>
-            <h1>{{ post.attributes.title }}</h1>
-            <img
-              [src]="post.attributes.coverImage"
-              alt=""
-              class="w-20 h-20 rounded-full"
-            />
-            <analog-markdown [content]="post.content"></analog-markdown>
+        <ng-container *ngIf="aboutPage$ | async as about">
+          <div
+            class="terminal-background rounded-lg shadow-xl overflow-hidden  m-3"
+          >
+            <div
+              class="flex justify-start items-center gap-1 bg-gray-700 p-2 pl-3"
+            >
+              <div class="bg-red-500 rounded-full w-3 h-3 mr-1"></div>
+              <div class="bg-yellow-400 rounded-full w-3 h-3 mr-1"></div>
+              <div class="bg-green-500 rounded-full w-3 h-3 mr-1"></div>
+              <div class="text-white mx-auto font-semibold text-lg">
+                My Favorite Function
+              </div>
+              <div class="h-6 w-6"></div>
+            </div>
+            <analog-markdown [content]="about.content"></analog-markdown>
           </div>
         </ng-container>
       </div>
@@ -90,15 +96,22 @@ export interface AboutPageAttributes {
 })
 export default class UserDetailsPageComponent {
   private readonly route = inject(ActivatedRoute);
-  readonly post$ = injectContent<AboutPageAttributes>({
-    param: 'id',
-    subdirectory: 'users',
-  }).pipe(tap((data) => console.log(data)));
-
   private store = inject(Store);
 
-  readonly userLoading$ = this.store.select(selectUserLoading);
-  readonly userError$ = this.store.select(selectUserError).pipe(shareReplay(1));
+  public readonly aboutPage$ = injectContent<AboutPageAttributes>({
+    param: 'id',
+    subdirectory: 'users',
+  }).pipe(
+    map((data) => {
+      if (data.content === 'No Content Found') return null;
+      return data;
+    })
+  );
+
+  public readonly userLoading$ = this.store.select(selectUserLoading);
+  public readonly userError$ = this.store
+    .select(selectUserError)
+    .pipe(shareReplay(1));
 
   readonly user$ = this.route.paramMap.pipe(
     map((params) => params.get('id')),

@@ -13,6 +13,13 @@ export default defineConfig(({ mode }) => ({
     mainFields: ['module'],
   },
   plugins: [analog()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "prismjs/themes/prism.css";`,
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
