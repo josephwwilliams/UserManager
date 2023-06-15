@@ -22,6 +22,12 @@ For continued developement run `yarn dev` to start your developement server.
 yarn dev
 ```
 
+To drop and reapply migrations to your database run `yarn db:reset`.
+
+```bash
+yarn db:reset
+```
+
 ## Build
 
 Run `npm run build` to build the client/server project. The client build artifacts are located in the `dist/analog/public` directory. The server for the API build artifacts are located in the `dist/analog/server` directory.
