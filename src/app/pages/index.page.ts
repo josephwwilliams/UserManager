@@ -86,7 +86,7 @@ import { RouterLink } from '@angular/router';
         </p>
       </ng-template>
 
-      <ul class="space-y-4 max-h-72 custom-scrollbar overflow-y-auto px-1">
+      <ul class="space-y-4 max-h-72 custom-scrollbar overflow-y-auto p-1">
         <ng-container *ngIf="(users$ | async)?.length; else noUsers">
           <li
             *ngFor="let user of users$ | async"
