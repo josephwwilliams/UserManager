@@ -52,6 +52,14 @@ import { RouterLink } from '@angular/router';
           [required]="true"
         ></app-input>
 
+        <app-input
+          [control]="image_url"
+          label="Avatar"
+          type="text"
+          placeholder="Enter an image URL"
+          [required]="true"
+        ></app-input>
+
         <app-button
           buttonType="submit"
           [isLoading]="addUserLoading$ | async"
@@ -141,6 +149,7 @@ export default class HomeComponent {
   public userForm: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
+    image_url: ['', [Validators.required]],
   });
 
   get name() {
@@ -149,6 +158,10 @@ export default class HomeComponent {
 
   get email() {
     return this.userForm.get('email') as FormControl;
+  }
+
+  get image_url() {
+    return this.userForm.get('image_url') as FormControl;
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { filter, map, of, shareReplay, switchMap } from 'rxjs';
+import { filter, map, of, shareReplay, switchMap, tap } from 'rxjs';
 import { ButtonComponent } from '../../../lib/components/button';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../shared/store/user/user.actions';
@@ -10,11 +10,24 @@ import {
   selectUserError,
   selectUserLoading,
 } from '../../shared/store/user/user.selectors';
+import { MarkdownComponent, injectContent } from '@analogjs/content';
+
+export interface AboutPageAttributes {
+  title: string;
+  coverImage: string;
+}
 
 @Component({
   selector: 'app-user-details',
   standalone: true,
-  imports: [AsyncPipe, JsonPipe, NgIf, RouterLink, ButtonComponent],
+  imports: [
+    AsyncPipe,
+    JsonPipe,
+    NgIf,
+    RouterLink,
+    ButtonComponent,
+    MarkdownComponent,
+  ],
   template: `
     <div class="flex flex-col gap-6">
       <app-button routerLink="/" buttonText="Back"></app-button>
@@ -24,7 +37,7 @@ import {
         >
           <div class="flex relative">
             <img
-              src="https://source.unsplash.com/user/wsanter"
+              [src]="user.image_url"
               class="w-40 h-40 rounded-full absolute top-0 shadow border-2 border-white left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white object-cover"
             />
             <div
@@ -37,6 +50,19 @@ import {
             </div>
           </div>
         </div>
+
+        <ng-container *ngIf="post$ | async as post">
+          <div class="border border-gray-300 p-4 rounded-md my-2">
+            <h1 class="underline">Dynamic Mardown Content:</h1>
+            <h1>{{ post.attributes.title }}</h1>
+            <img
+              [src]="post.attributes.coverImage"
+              alt=""
+              class="w-20 h-20 rounded-full"
+            />
+            <analog-markdown [content]="post.content"></analog-markdown>
+          </div>
+        </ng-container>
       </div>
 
       <ng-template #noUser>
@@ -64,6 +90,11 @@ import {
 })
 export default class UserDetailsPageComponent {
   private readonly route = inject(ActivatedRoute);
+  readonly post$ = injectContent<AboutPageAttributes>({
+    param: 'id',
+    subdirectory: 'users',
+  }).pipe(tap((data) => console.log(data)));
+
   private store = inject(Store);
 
   readonly userLoading$ = this.store.select(selectUserLoading);

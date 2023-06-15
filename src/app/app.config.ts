@@ -7,6 +7,7 @@ import { provideStore } from '@ngrx/store';
 import { UserEffects } from './shared/store/user/user.effects';
 import { userReducer } from './shared/store/user/user.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideContent, withMarkdownRenderer } from '@analogjs/content';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideStore({ users: userReducer }),
     provideStoreDevtools(),
     provideEffects([UserEffects]),
+    provideContent(withMarkdownRenderer()),
   ],
 };

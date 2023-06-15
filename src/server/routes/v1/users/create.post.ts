@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 const createUserSchema = z.object({
   name: z.string(),
   email: z.string().email(),
+  image_url: z.string(),
 });
 
 export default eventHandler(async (event) => {
