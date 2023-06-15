@@ -2,6 +2,8 @@
 
 This project uses [Analog JS](https://analogjs.org/) the full stack meta framework for Angular supporting Hybrid SSR/SSG with File-based routing and API routes along with NGRX for state management, Tailwind CSS for frontend styling, Zod for backend validation, and Prisma for the database ORM.
 
+Honestly just a fun little side project to display NGRX and Analog JS. Not complex by any means but enojoyable to play around with 👨‍🎨
+
 ## Development
 
 For first time setup run `yarn setup` to install the application dependencies, initialize your database, and start your developement server.
