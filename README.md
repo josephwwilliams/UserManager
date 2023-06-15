@@ -51,3 +51,9 @@ Run `npm run test` to run unit tests with [Vitest](https://vitest.dev).
 - [Zod](https://github.com/colinhacks/zod)
 - [Prisma](https://www.prisma.io/)
 - [Vite](https://vitejs.dev/)
+
+
+![](src/assets/images/github/home_light.PNG)
+![](src/assets/images/github/home_dark.PNG)
+![](src/assets/images/github/user_light.PNG)
+![](src/assets/images/github/user_dark.PNG)
